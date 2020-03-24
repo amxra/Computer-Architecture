@@ -7,6 +7,9 @@ class CPU:
 
     def __init__(self):
         """Construct a new CPU."""
+        self.ram = [0] * 256
+        self.reg = [0] * 8
+        self.pc = 0
         pass
 
     def load(self):
@@ -62,7 +65,6 @@ class CPU:
 
     def run(self):
         """Run the CPU."""
-        
         #create instructions for LDI, PRN, and HLT programs
         LDI = 0b10000010
         PRN = 0b01000111
@@ -70,7 +72,7 @@ class CPU:
 
         #set running to True
         running = True
-
+        
         #while cpu is running
         while running:
             #  set instruction register per step 3
@@ -100,3 +102,9 @@ class CPU:
             else:
                 print(f"Invalid Command: {self.ram[self.pc]}")
                 sys.exit(1)
+
+    def ram_read(self, MAR):
+        return self.ram[MAR]
+
+    def raw_write(self, MAR, MDR):
+        self.reg[MAR] = MDR
